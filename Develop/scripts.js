@@ -5,7 +5,7 @@
    let currentHour = moment().format("HH");
 
    //Past, present, and future functional 
-   //Compare time(Hours) to observe whether activity is in the past, present, or future 
+   //Loops through and Compare timeblocks(Hours) to observe whether activity is in the past, present, or future 
    $(".time-div").each(function() {
        var timeDiv = $(this).attr("id").split("-")[1];
 
@@ -31,6 +31,14 @@
        localStorage.setItem(time,value);
    });
 
+   function saveToStorage (event) {
+        let userInput = $(event.target).parent().find(".form-control").val();
+        let timeblocks = $(event.target).parent().find(".form-control").attr("id");
+        localStorage.setItem(timeblocks, userInput);
+   }
+
+
+
    //Retrieve data from local storage 
    $("#hour-09 .time-block").val(localStorage.getItem("09"));
    $("#hour-10 .time-block").val(localStorage.getItem("10"));
@@ -42,4 +50,5 @@
    $("#hour-16 .time-block").val(localStorage.getItem("16"));
    $("#hour-17 .time-block").val(localStorage.getItem("17"));
 
-    
+    // event listener to commit text to localstorage
+    saveButton.on("click", saveToStorage);
